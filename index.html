@@ -1,0 +1,1226 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarbonIQ — ESG & Carbon Intelligence Platform</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+</head>
+<body>
+
+<!-- ═══ NAVIGATION ═══ -->
+<nav id="nav">
+  <div class="nav-logo" onclick="showPage('landing')">
+    <div class="nav-logo-icon">🌿</div>
+    <span class="nav-logo-text">Carbon<span>X</span></span>
+  </div>
+  <div class="nav-links" id="main-nav-links">
+    <span class="nav-link" onclick="showPage('landing')">Home</span>
+    <span class="nav-link" onclick="showPage('dashboard'); initDashboard()">Dashboard</span>
+    <span class="nav-link" onclick="showPage('calculator')">Calculator</span>
+    <span class="nav-link" onclick="showPage('ai')">AI Insights</span>
+    <span class="nav-link" onclick="showPage('reports')">Reports</span>
+    <span class="nav-link" onclick="showPage('credits')">Credits</span>
+  </div>
+  <div class="nav-actions">
+    <button class="btn btn-ghost btn-sm" onclick="showPage('login')">Sign In</button>
+    <button class="btn btn-primary btn-sm" onclick="showPage('register')">Get Started →</button>
+  </div>
+</nav>
+
+<!-- ═══ TOAST CONTAINER ═══ -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<!-- ═══ MODAL ═══ -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent">
+    <div id="modalInner"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ PAGE: LANDING ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-landing" class="page active" style="padding-top:64px;">
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <div class="ai-pulse"></div>
+        AI-Powered ESG Intelligence Platform
+      </div>
+      <h1 class="hero-h1">
+        Measure.<br>
+        <span class="accent">Predict.</span><br>
+        <span class="dim">Reduce.</span>
+      </h1>
+      <p class="hero-sub">
+        CarbonIQ gives enterprises a complete ESG command center — track all emission scopes, generate compliance reports, forecast your carbon future with AI, and retire verified credits.
+      </p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-lg" onclick="showPage('register')">
+          Start Free Trial →
+        </button>
+        <button class="btn btn-outline btn-lg" onclick="showPage('dashboard'); initDashboard()">
+          View Live Demo
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker-wrap">
+    <div class="ticker-inner" id="tickerInner">
+      <!-- Duplicated for seamless loop -->
+      <span class="ticker-item">🌍 Global CO₂ Today <span class="val">42.3 Gt</span></span>
+      <span class="ticker-item">⚡ India Grid Factor <span class="val">0.716 kg/kWh</span></span>
+      <span class="ticker-item">💱 Carbon Price EU ETS <span class="val">€63.2/tonne</span></span>
+      <span class="ticker-item">🏭 India BRSR Deadline <span class="val">Mar 31, 2025</span></span>
+      <span class="ticker-item">🌿 Verra VCU Price <span class="val">$5.40/tonne</span></span>
+      <span class="ticker-item">📊 India ESG Market <span class="val">₹12,400 Cr</span></span>
+      <span class="ticker-item">🎯 Net Zero Target <span class="val">2070</span></span>
+      <span class="ticker-item">🌍 Global CO₂ Today <span class="val">42.3 Gt</span></span>
+      <span class="ticker-item">⚡ India Grid Factor <span class="val">0.716 kg/kWh</span></span>
+      <span class="ticker-item">💱 Carbon Price EU ETS <span class="val">€63.2/tonne</span></span>
+      <span class="ticker-item">🏭 India BRSR Deadline <span class="val">Mar 31, 2025</span></span>
+      <span class="ticker-item">🌿 Verra VCU Price <span class="val">$5.40/tonne</span></span>
+      <span class="ticker-item">📊 India ESG Market <span class="val">₹12,400 Cr</span></span>
+      <span class="ticker-item">🎯 Net Zero Target <span class="val">2070</span></span>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-cell">
+        <span class="stat-number counter" data-target="2400">0</span><span class="stat-number">+</span>
+        <span class="stat-label">// companies tracked</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-number counter" data-target="18">0</span><span class="stat-number">M</span>
+        <span class="stat-label">// tonnes CO₂ reported</span>
+      </div>
+      <div class="stat-cell">
+        <span class="stat-number counter" data-target="94">0</span><span class="stat-number">%</span>
+        <span class="stat-label">// ESG compliance rate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section">
+    <div class="section-intro">
+      <h2>Everything you need for <span style="color:var(--acc)">ESG excellence</span></h2>
+      <p style="color:var(--txt3);font-size:14px;line-height:1.7;">A vertically integrated platform built for India's growing sustainability compliance mandate.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" onclick="showPage('calculator')">
+        <span class="feature-icon">🧮</span>
+        <h3>Carbon Calculator Engine</h3>
+        <p>Industry-standard GHG Protocol calculations for Scope 1, 2 & 3 with India-specific grid emission factors across all 28 states and 8 UTs.</p>
+      </div>
+      <div class="feature-card" onclick="showPage('ai')">
+        <span class="feature-icon">🤖</span>
+        <h3>AI Emission Forecasting</h3>
+        <p>Prophet-powered ML model predicts your 12-month emission trajectory with confidence intervals and scenario modeling tools.</p>
+      </div>
+      <div class="feature-card" onclick="showPage('dashboard'); initDashboard()">
+        <span class="feature-icon">📊</span>
+        <h3>ESG Reporting Dashboard</h3>
+        <p>Real-time Bloomberg-grade terminal view of all emission KPIs, heatmaps, scope breakdowns, and compliance deadlines.</p>
+      </div>
+      <div class="feature-card" onclick="showPage('reports')">
+        <span class="feature-icon">📋</span>
+        <h3>Compliance Report Builder</h3>
+        <p>One-click PDF generation for GHG Protocol, BRSR, GRI Standards, CDP, and TCFD — all branded with your company identity.</p>
+      </div>
+      <div class="feature-card" onclick="showPage('credits')">
+        <span class="feature-icon">🌱</span>
+        <h3>Carbon Credit Marketplace</h3>
+        <p>Browse Verra and Gold Standard verified projects. Purchase, track portfolio, and retire credits with automated certificates.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔗</span>
+        <h3>Supplier Engagement Portal</h3>
+        <p>Invite your supply chain to submit Scope 3 data directly through a tokenized portal. Auto-aggregates into your reports.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="section-intro">
+      <h2>Transparent <span style="color:var(--acc)">pricing</span></h2>
+      <p style="color:var(--txt3);font-size:14px;">Scale from student project to enterprise deployment.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-plan">// Starter</div>
+        <div class="pricing-price">Free</div>
+        <div class="pricing-desc">Perfect for exploring and small teams.</div>
+        <ul class="pricing-features">
+          <li>1 company profile</li>
+          <li>Basic carbon calculator</li>
+          <li>Scope 1 & 2 tracking</li>
+          <li>2 reports per month</li>
+          <li>Email support</li>
+        </ul>
+        <button class="btn btn-outline w-full" onclick="showPage('register')">Get Started Free</button>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge">MOST POPULAR</div>
+        <div class="pricing-plan">// Pro</div>
+        <div class="pricing-price">₹4,999<span>/mo</span></div>
+        <div class="pricing-desc">For growing companies with compliance needs.</div>
+        <ul class="pricing-features">
+          <li>All Scope 1, 2 & 3 tracking</li>
+          <li>AI forecasting & recommendations</li>
+          <li>Unlimited PDF reports</li>
+          <li>Carbon credit marketplace</li>
+          <li>Supplier portal (10 suppliers)</li>
+          <li>Anomaly detection alerts</li>
+          <li>API access (30 req/min)</li>
+        </ul>
+        <button class="btn btn-primary w-full" onclick="showPage('register')">Start Pro Trial →</button>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-plan">// Enterprise</div>
+        <div class="pricing-price">Custom</div>
+        <div class="pricing-desc">For large corporates and conglomerates.</div>
+        <ul class="pricing-features">
+          <li>Unlimited locations & entities</li>
+          <li>White-label reports</li>
+          <li>Dedicated CSM</li>
+          <li>Custom integrations (SAP, Oracle)</li>
+          <li>Blockchain audit trail</li>
+          <li>SLA guarantee</li>
+          <li>On-premise deployment option</li>
+        </ul>
+        <button class="btn btn-ghost w-full" onclick="showToast('Our team will contact you shortly!', 'success')">Contact Sales</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="landing-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="nav-logo-icon">🌿</div>
+          <span class="nav-logo-text">Carbon<span>IQ</span></span>
+        </div>
+        <p>India's most comprehensive ESG & carbon intelligence platform. Built for net-zero compliance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Calculator</a></li>
+          <li><a href="#">AI Insights</a></li>
+          <li><a href="#">Marketplace</a></li>
+          <li><a href="#">API Docs</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Partners</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Security</a></li>
+          <li><a href="#">DPDP Act</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 CarbonIQ Technologies Pvt Ltd. All rights reserved.</p>
+      <div class="compliance-badges">
+        <span class="comp-badge">ISO 14064</span>
+        <span class="comp-badge">GHG Protocol</span>
+        <span class="comp-badge">BRSR</span>
+        <span class="comp-badge">SBTi</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ PAGE: LOGIN ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-login" class="page" style="padding-top:64px;">
+  <div class="auth-page">
+    <div class="auth-left">
+      <div style="text-align:center;position:relative;z-index:2;">
+        <div class="auth-globe"></div>
+        <h2 class="syne" style="font-size:26px;font-weight:800;margin-top:32px;letter-spacing:-0.5px;">Track your carbon,<br><span style="color:var(--acc)">shape your future.</span></h2>
+        <p style="color:var(--txt3);font-size:13px;margin-top:12px;max-width:280px;margin-left:auto;margin-right:auto;">2,400+ companies use CarbonIQ to meet India's BRSR & ESG disclosure requirements.</p>
+      </div>
+      <div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, rgba(0,230,118,0.04), transparent 70%);pointer-events:none;"></div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-form-wrap">
+        <h1 class="auth-title">Welcome back</h1>
+        <p class="auth-sub">Sign in to your CarbonIQ account</p>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input class="form-input" type="email" placeholder="you@company.com" id="loginEmail" value="demo@carboniq.io">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input class="form-input" type="password" placeholder="••••••••" id="loginPass" value="password123">
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-bottom:24px;">
+          <span style="font-size:12px;color:var(--acc);cursor:pointer;font-family:'JetBrains Mono',monospace;">Forgot password?</span>
+        </div>
+        <button class="btn btn-primary w-full" style="justify-content:center;padding:13px;" onclick="doLogin()">Sign In →</button>
+        <div style="margin-top:20px;text-align:center;font-size:13px;color:var(--txt3);">
+          Don't have an account? <span style="color:var(--acc);cursor:pointer;" onclick="showPage('register')">Create one →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ PAGE: REGISTER / ONBOARDING ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-register" class="page" style="padding-top:64px;">
+  <div class="auth-page">
+    <div class="auth-left">
+      <div style="text-align:center;position:relative;z-index:2;">
+        <div style="font-size:64px;margin-bottom:24px;">🌿</div>
+        <h2 class="syne" style="font-size:26px;font-weight:800;letter-spacing:-0.5px;">Your ESG journey<br><span style="color:var(--acc)">starts here.</span></h2>
+        <p style="color:var(--txt3);font-size:13px;margin-top:12px;max-width:280px;margin-left:auto;margin-right:auto;">Join companies reducing emissions and meeting India's sustainability mandates with CarbonIQ.</p>
+        <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px;max-width:260px;margin-left:auto;margin-right:auto;">
+          <div style="display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:10px 14px;">
+            <span style="color:var(--acc);font-size:16px;">✓</span>
+            <span style="font-size:12px;color:var(--txt2);">Free 30-day trial, no credit card</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:10px 14px;">
+            <span style="color:var(--acc);font-size:16px;">✓</span>
+            <span style="font-size:12px;color:var(--txt2);">GHG Protocol compliant calculations</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:10px 14px;">
+            <span style="color:var(--acc);font-size:16px;">✓</span>
+            <span style="font-size:12px;color:var(--txt2);">BRSR & CDP reports ready in minutes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="auth-right" style="align-items:flex-start;padding-top:80px;overflow-y:auto;">
+      <div class="auth-form-wrap" style="max-width:460px;">
+        <!-- Step indicator -->
+        <div class="onboard-steps" id="onboardSteps">
+          <div class="step-dot active" data-step="1"><div class="step-circle">1</div><span class="step-name">Profile</span></div>
+          <div class="step-dot" data-step="2"><div class="step-circle">2</div><span class="step-name">Company</span></div>
+          <div class="step-dot" data-step="3"><div class="step-circle">3</div><span class="step-name">Sources</span></div>
+          <div class="step-dot" data-step="4"><div class="step-circle">4</div><span class="step-name">Targets</span></div>
+          <div class="step-dot" data-step="5"><div class="step-circle">5</div><span class="step-name">Done</span></div>
+        </div>
+
+        <!-- Step 1 -->
+        <div id="reg-step-1">
+          <h1 class="auth-title">Create your account</h1>
+          <p class="auth-sub">Start your free 30-day trial</p>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input class="form-input" type="text" placeholder="Arjun">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input class="form-input" type="text" placeholder="Sharma">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Work Email</label>
+            <input class="form-input" type="email" placeholder="arjun@techcorp.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input class="form-input" type="password" placeholder="Min. 8 characters">
+          </div>
+          <button class="btn btn-primary w-full mt-16" style="justify-content:center;padding:13px;" onclick="nextStep(2)">Continue →</button>
+          <div style="margin-top:16px;text-align:center;font-size:12px;color:var(--txt4);">Already have an account? <span style="color:var(--acc);cursor:pointer;" onclick="showPage('login')">Sign in</span></div>
+        </div>
+
+        <!-- Step 2 -->
+        <div id="reg-step-2" style="display:none;">
+          <h1 class="auth-title">Company details</h1>
+          <p class="auth-sub">Tell us about your organization</p>
+          <div class="form-group">
+            <label class="form-label">Company Name</label>
+            <input class="form-input" type="text" placeholder="TechCorp India Pvt Ltd">
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label class="form-label">Industry</label>
+              <select class="form-select">
+                <option>IT / Software</option>
+                <option>Manufacturing</option>
+                <option>Real Estate</option>
+                <option>Logistics</option>
+                <option>Education</option>
+                <option>Healthcare</option>
+                <option>Retail</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Employee Count</label>
+              <select class="form-select">
+                <option>1-50</option>
+                <option>51-250</option>
+                <option selected>251-1000</option>
+                <option>1001-5000</option>
+                <option>5000+</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reporting Base Year</label>
+            <select class="form-select">
+              <option>2019</option><option>2020</option><option>2021</option>
+              <option selected>2022</option><option>2023</option>
+            </select>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:16px;">
+            <button class="btn btn-ghost" onclick="nextStep(1)">← Back</button>
+            <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="nextStep(3)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div id="reg-step-3" style="display:none;">
+          <h1 class="auth-title">Emission sources</h1>
+          <p class="auth-sub">Select all that apply to your operations</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:24px;" id="sourceChecks">
+            <label class="report-section-check checked" onclick="toggleCheck(this)"><div class="check-box"></div><div><div style="font-size:13px;font-weight:600;">⚡ Electricity</div><div style="font-size:11px;color:var(--txt3);">Scope 2</div></div></label>
+            <label class="report-section-check" onclick="toggleCheck(this)"><div class="check-box"></div><div><div style="font-size:13px;font-weight:600;">🚗 Company Vehicles</div><div style="font-size:11px;color:var(--txt3);">Scope 1</div></div></label>
+            <label class="report-section-check checked" onclick="toggleCheck(this)"><div class="check-box"></div><div><div style="font-size:13px;font-weight:600;">🏭 Diesel Generator</div><div style="font-size:11px;color:var(--txt3);">Scope 1</div></div></label>
+            <label class="report-section-check" onclick="toggleCheck(this)"><div class="check-box"></div><div><div style="font-size:13px;font-weight:600;">✈️ Air Travel</div><div style="font-size:11px;color:var(--txt3);">Scope 3</div></div></label>
+            <label class="report-section-check" onclick="toggleCheck(this)"><div class="check-box"></div><div><div style="font-size:13px;font-weight:600;">🚌 Commute</div><div style="font-size:11px;color:var(--txt3);">Scope 3</div></div></label>
+            <label class="report-section-check" onclick="toggleCheck(this)"><div class="check-box"></div><div><div style="font-size:13px;font-weight:600;">🗑️ Waste</div><div style="font-size:11px;color:var(--txt3);">Scope 3</div></div></label>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <button class="btn btn-ghost" onclick="nextStep(2)">← Back</button>
+            <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="nextStep(4)">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div id="reg-step-4" style="display:none;">
+          <h1 class="auth-title">Set your targets</h1>
+          <p class="auth-sub">Define your net-zero ambition</p>
+          <div class="form-group">
+            <label class="form-label">Reduction Target (%)</label>
+            <input type="range" min="10" max="100" value="45" id="targetSlider" oninput="document.getElementById('targetVal').textContent = this.value + '%'">
+            <div style="text-align:center;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:24px;color:var(--acc);" id="targetVal">45%</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Year</label>
+            <select class="form-select">
+              <option>2030</option><option>2035</option><option selected>2040</option><option>2045</option><option>2050</option>
+            </select>
+          </div>
+          <div style="background:rgba(0,230,118,0.05);border:1px solid rgba(0,230,118,0.15);border-radius:8px;padding:12px 14px;margin-bottom:20px;">
+            <div style="font-size:11px;color:var(--acc);font-family:'JetBrains Mono',monospace;font-weight:700;margin-bottom:4px;">SBTi ALIGNMENT</div>
+            <div style="font-size:12px;color:var(--txt2);">Your 45% by 2040 target is aligned with Science Based Targets (1.5°C pathway). ✓</div>
+          </div>
+          <div style="display:flex;gap:12px;">
+            <button class="btn btn-ghost" onclick="nextStep(3)">← Back</button>
+            <button class="btn btn-primary" style="flex:1;justify-content:center;" onclick="nextStep(5)">Launch Dashboard →</button>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div id="reg-step-5" style="display:none;text-align:center;">
+          <div style="font-size:72px;margin-bottom:20px;">🎉</div>
+          <h1 class="auth-title" style="text-align:center;">You're all set!</h1>
+          <p style="color:var(--txt3);font-size:14px;margin-bottom:32px;">Your CarbonIQ workspace is ready. Let's start measuring your carbon footprint.</p>
+          <button class="btn btn-primary btn-lg w-full" style="justify-content:center;" onclick="showPage('dashboard'); initDashboard()">Enter Dashboard →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ PAGE: DASHBOARD ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-dashboard" class="page" style="padding-top:64px;">
+  <div class="app-layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">// Main</div>
+        <div class="sidebar-item active" onclick="switchDashTab('overview')"><span class="icon">📊</span> Overview</div>
+        <div class="sidebar-item" onclick="showPage('calculator')"><span class="icon">🧮</span> Calculator</div>
+        <div class="sidebar-item" onclick="showPage('ai')"><span class="icon">🤖</span> AI Insights</div>
+        <div class="sidebar-item" onclick="showPage('reports')"><span class="icon">📋</span> Reports</div>
+        <div class="sidebar-item" onclick="showPage('credits')"><span class="icon">🌱</span> Carbon Credits</div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">// Data</div>
+        <div class="sidebar-item" onclick="switchDashTab('scope1')"><span class="icon">🏭</span> Scope 1 Emissions</div>
+        <div class="sidebar-item" onclick="switchDashTab('scope2')"><span class="icon">⚡</span> Scope 2 Emissions</div>
+        <div class="sidebar-item" onclick="switchDashTab('scope3')"><span class="icon">🔗</span> Scope 3 Emissions</div>
+        <div class="sidebar-item" onclick="switchDashTab('targets')"><span class="icon">🎯</span> Targets <span class="sidebar-badge green">3</span></div>
+        <div class="sidebar-item"><span class="icon">🏢</span> Locations</div>
+        <div class="sidebar-item"><span class="icon">🤝</span> Suppliers</div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-label">// System</div>
+        <div class="sidebar-item"><span class="icon">📜</span> Audit Log</div>
+        <div class="sidebar-item"><span class="icon">🔔</span> Notifications <span class="sidebar-badge">3</span></div>
+        <div class="sidebar-item"><span class="icon">⚙️</span> Settings</div>
+      </div>
+
+      <!-- sidebar ESG score teaser -->
+      <div style="margin-top:auto;padding:14px;background:var(--glass);border:1px solid var(--border);border-radius:8px;">
+        <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--txt4);font-weight:700;letter-spacing:1px;margin-bottom:8px;">ESG SCORE</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--acc);">72<span style="font-size:14px;color:var(--txt3)">/100</span></div>
+        <div style="margin-top:8px;" class="progress-bar-wrap">
+          <div class="progress-bar" style="width:72%"></div>
+        </div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:6px;">↑ +4 from last month</div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+      <!-- OVERVIEW TAB -->
+      <div id="tab-overview">
+        <div class="dash-header">
+          <div class="dash-header-left">
+            <h1>Dashboard Overview</h1>
+            <p>TechCorp India Pvt Ltd · FY 2024-25 · Last updated just now</p>
+          </div>
+          <div class="dash-header-right">
+            <div class="live-badge"><div class="ai-pulse"></div> LIVE</div>
+            <div class="notif-bell" onclick="showNotifModal()">🔔<div class="notif-dot"></div></div>
+            <div class="user-avatar">AS</div>
+          </div>
+        </div>
+
+        <!-- AI INSIGHT -->
+        <div class="ai-insight">
+          <div class="ai-insight-header">
+            <div class="ai-pulse"></div>
+            <span class="ai-insight-label">AI Insight · Generated 2 hours ago</span>
+          </div>
+          <p style="font-size:14px;color:var(--txt2);">⚡ Your electricity consumption spiked <strong style="color:var(--acc)">23%</strong> in the last week. HVAC scheduling optimization could save ~340 kg CO₂/month. Switching to solar for 30% of load would reduce Scope 2 by <strong style="color:var(--acc)">18%</strong> with ROI in 3.2 years.</p>
+        </div>
+
+        <!-- KPI GRID -->
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">Total Emissions (This Month)</div>
+            <div class="kpi-value large" id="kpi-total">0</div>
+            <div class="kpi-sub"><span class="kpi-up">↑ 12.4%</span> <span style="color:var(--txt4);font-size:11px;">vs last month</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Scope 2 (Electricity)</div>
+            <div class="kpi-value" id="kpi-scope2">0</div>
+            <div class="kpi-sub"><span class="kpi-down">↓ 5.2%</span> <span style="color:var(--txt4);font-size:11px;">improving</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Emission Intensity</div>
+            <div class="kpi-value" id="kpi-intensity">0</div>
+            <div class="kpi-sub" style="font-size:11px;color:var(--txt4);">kg CO₂e / employee</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Carbon Credit Balance</div>
+            <div class="kpi-value" id="kpi-credits">0</div>
+            <div class="kpi-sub"><span style="color:var(--txt4);font-size:11px;">tonnes CO₂e remaining</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">ESG Score</div>
+            <div class="kpi-value" style="color:var(--acc);" id="kpi-esg">0</div>
+            <div class="kpi-sub"><span class="kpi-down">↑ +4</span> <span style="color:var(--txt4);font-size:11px;">from last month</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Days to BRSR Deadline</div>
+            <div class="kpi-value" style="color:var(--amber);" id="kpi-deadline">0</div>
+            <div class="kpi-sub"><span style="color:var(--txt4);font-size:11px;">March 31, 2025</span></div>
+          </div>
+        </div>
+
+        <!-- CHARTS ROW 1 -->
+        <div class="chart-grid">
+          <div class="chart-card">
+            <div class="chart-title">12-Month Emission Trend</div>
+            <div class="chart-subtitle">// Scope 1 + 2 + 3 stacked (kg CO₂e)</div>
+            <canvas id="trendChart" height="240"></canvas>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Emission Breakdown</div>
+            <div class="chart-subtitle">// By category this month</div>
+            <canvas id="donutChart" height="240"></canvas>
+          </div>
+        </div>
+
+        <!-- CHARTS ROW 2 -->
+        <div class="chart-grid-3">
+          <div class="chart-card">
+            <div class="chart-title">Year Comparison</div>
+            <div class="chart-subtitle">// 2024 vs 2023 monthly</div>
+            <canvas id="compareChart" height="180"></canvas>
+          </div>
+          <div class="chart-card" style="grid-column: span 2;">
+            <div class="chart-title">Daily Emission Heatmap</div>
+            <div class="chart-subtitle">// Intensity levels past 12 months</div>
+            <div class="heatmap-grid" id="heatmapGrid"></div>
+            <div style="display:flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;color:var(--txt4);font-family:'JetBrains Mono',monospace;">
+              Less
+              <div style="width:10px;height:10px;border-radius:2px;background:var(--bg2);border:1px solid var(--border);"></div>
+              <div class="heatmap-cell l1" style="width:10px;height:10px;border-radius:2px;"></div>
+              <div class="heatmap-cell l2" style="width:10px;height:10px;border-radius:2px;"></div>
+              <div class="heatmap-cell l3" style="width:10px;height:10px;border-radius:2px;"></div>
+              <div class="heatmap-cell l4" style="width:10px;height:10px;border-radius:2px;"></div>
+              <div class="heatmap-cell l5" style="width:10px;height:10px;border-radius:2px;"></div>
+              More
+            </div>
+          </div>
+        </div>
+
+        <!-- DATA TABLE -->
+        <div class="chart-card mb-24">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+            <div>
+              <div class="chart-title">Top Emission Sources</div>
+              <div class="chart-subtitle">// This month · Ranked by CO₂e contribution</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="showPage('calculator')">+ Add Entry</button>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Source</th><th>Scope</th><th>Category</th><th>CO₂e (kg)</th><th>% Total</th><th>Trend</th><th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="emissionTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SCOPE 1 TAB -->
+      <div id="tab-scope1" style="display:none;">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Scope 1 — Direct Emissions</div>
+            <div class="section-subtitle">// Fuel combustion, company vehicles, on-site processes</div>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="showPage('calculator')">+ Log Entry</button>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Total Scope 1 YTD</div><div class="kpi-value" style="color:var(--red);">142,800</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">kg CO₂e</div></div>
+          <div class="kpi-card"><div class="kpi-label">Diesel Generator</div><div class="kpi-value">68,240</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">47.8% of Scope 1</div></div>
+          <div class="kpi-card"><div class="kpi-label">Company Vehicles</div><div class="kpi-value">52,100</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">36.5% of Scope 1</div></div>
+          <div class="kpi-card"><div class="kpi-label">LPG / Gas</div><div class="kpi-value">22,460</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">15.7% of Scope 1</div></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-title">Scope 1 Monthly Breakdown</div>
+          <div class="chart-subtitle">// Last 12 months by fuel type</div>
+          <canvas id="scope1Chart" height="200"></canvas>
+        </div>
+        <div class="chart-card mt-16">
+          <div class="chart-title">Scope 1 Entries</div>
+          <table class="data-table">
+            <thead><tr><th>Date</th><th>Source</th><th>Activity Data</th><th>Emission Factor</th><th>CO₂e (kg)</th><th>Verified</th></tr></thead>
+            <tbody>
+              <tr><td style="color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:12px;">2024-12-01</td><td>Diesel DG Set</td><td class="mono-val">480 litres</td><td class="mono-val">2.68 kg/L</td><td class="mono-val" style="color:var(--acc)">1,286.4</td><td><span class="badge badge-green">✓ Verified</span></td></tr>
+              <tr><td style="color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:12px;">2024-12-03</td><td>Fleet Vehicle (3)</td><td class="mono-val">4,200 km</td><td class="mono-val">0.171 kg/km</td><td class="mono-val" style="color:var(--acc)">718.2</td><td><span class="badge badge-amber">⏳ Pending</span></td></tr>
+              <tr><td style="color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:12px;">2024-12-08</td><td>LPG (Kitchen)</td><td class="mono-val">120 kg</td><td class="mono-val">1.61 kg/kg</td><td class="mono-val" style="color:var(--acc)">193.2</td><td><span class="badge badge-green">✓ Verified</span></td></tr>
+              <tr><td style="color:var(--txt3);font-family:'JetBrains Mono',monospace;font-size:12px;">2024-12-12</td><td>Diesel DG Set</td><td class="mono-val">320 litres</td><td class="mono-val">2.68 kg/L</td><td class="mono-val" style="color:var(--acc)">857.6</td><td><span class="badge badge-green">✓ Verified</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- SCOPE 2 TAB -->
+      <div id="tab-scope2" style="display:none;">
+        <div class="section-header">
+          <div><div class="section-title">Scope 2 — Indirect (Energy)</div><div class="section-subtitle">// Grid electricity purchased</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showPage('calculator')">+ Log Entry</button>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Total Scope 2 YTD</div><div class="kpi-value" style="color:var(--amber);">385,600</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">kg CO₂e</div></div>
+          <div class="kpi-card"><div class="kpi-label">Grid Electricity</div><div class="kpi-value">538,600</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">kWh consumed YTD</div></div>
+          <div class="kpi-card"><div class="kpi-label">Emission Factor</div><div class="kpi-value" style="font-size:20px;color:var(--acc);">0.716</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">kg CO₂e/kWh (Maharashtra)</div></div>
+          <div class="kpi-card"><div class="kpi-label">Renewable %</div><div class="kpi-value" style="color:var(--acc);">0%</div><div class="kpi-sub"><span style="color:var(--txt3);font-size:11px;">Opportunity to reduce</span></div></div>
+        </div>
+        <div class="ai-insight">
+          <div class="ai-insight-header"><div class="ai-pulse"></div><span class="ai-insight-label">AI Recommendation</span></div>
+          <p style="font-size:14px;color:var(--txt2);">🌞 Installing 200 kWp rooftop solar would offset <strong style="color:var(--acc)">18%</strong> of your Scope 2 emissions. Estimated cost: ₹80-100 lakh. Payback period: <strong style="color:var(--acc)">3.2 years</strong>. Annual saving: ₹12.4 lakh in electricity bills.</p>
+        </div>
+      </div>
+
+      <!-- SCOPE 3 TAB -->
+      <div id="tab-scope3" style="display:none;">
+        <div class="section-header">
+          <div><div class="section-title">Scope 3 — Value Chain</div><div class="section-subtitle">// Employee commute, air travel, waste, supply chain</div></div>
+          <button class="btn btn-primary btn-sm">+ Add Scope 3 Data</button>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-label">Total Scope 3 YTD</div><div class="kpi-value" style="color:var(--txt2);">92,400</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">kg CO₂e</div></div>
+          <div class="kpi-card"><div class="kpi-label">Employee Commute</div><div class="kpi-value">38,200</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">41.3% of Scope 3</div></div>
+          <div class="kpi-card"><div class="kpi-label">Air Travel</div><div class="kpi-value">31,600</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">34.2% of Scope 3</div></div>
+          <div class="kpi-card"><div class="kpi-label">Supplier Data</div><div class="kpi-value" style="color:var(--amber);">Partial</div><div class="kpi-sub"><span style="color:var(--txt3);font-size:11px;">3/12 suppliers responded</span></div></div>
+        </div>
+        <div style="background:rgba(255,215,64,0.05);border:1px solid rgba(255,215,64,0.2);border-radius:8px;padding:16px 20px;margin-bottom:20px;">
+          <div style="font-size:12px;color:var(--amber);font-weight:700;font-family:'JetBrains Mono',monospace;margin-bottom:6px;">⚠ SUPPLIER DATA GAP</div>
+          <p style="font-size:13px;color:var(--txt2);">9 of your 12 suppliers haven't submitted emission data. Send reminders to complete your Scope 3 picture.</p>
+          <button class="btn btn-ghost btn-sm mt-8" onclick="showToast('Reminder emails sent to 9 suppliers!', 'success')">Send Reminders →</button>
+        </div>
+      </div>
+
+      <!-- TARGETS TAB -->
+      <div id="tab-targets" style="display:none;">
+        <div class="section-header">
+          <div><div class="section-title">Reduction Targets</div><div class="section-subtitle">// SBTi-aligned net-zero roadmap</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Target created!', 'success')">+ New Target</button>
+        </div>
+        <div id="targetCards"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ PAGE: CALCULATOR ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-calculator" class="page" style="padding-top:64px;">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">// Navigation</div>
+        <div class="sidebar-item" onclick="showPage('dashboard');initDashboard()"><span class="icon">📊</span> Dashboard</div>
+        <div class="sidebar-item active"><span class="icon">🧮</span> Calculator</div>
+        <div class="sidebar-item" onclick="showPage('ai')"><span class="icon">🤖</span> AI Insights</div>
+        <div class="sidebar-item" onclick="showPage('reports')"><span class="icon">📋</span> Reports</div>
+        <div class="sidebar-item" onclick="showPage('credits')"><span class="icon">🌱</span> Carbon Credits</div>
+      </div>
+    </aside>
+    <div class="main-content">
+      <div class="section-header">
+        <div><div class="section-title">Carbon Footprint Calculator</div><div class="section-subtitle">// GHG Protocol · Scope 1 / 2 / 3</div></div>
+        <button class="btn btn-primary btn-sm" onclick="saveCalculation()">💾 Save Calculation</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;">
+        <!-- LEFT: INPUT TABS -->
+        <div>
+          <div class="tabs">
+            <button class="tab-btn active" onclick="switchCalcTab('energy',this)">⚡ Energy</button>
+            <button class="tab-btn" onclick="switchCalcTab('transport',this)">🚗 Transport</button>
+            <button class="tab-btn" onclick="switchCalcTab('fuel',this)">🔥 Fuel</button>
+            <button class="tab-btn" onclick="switchCalcTab('waste',this)">🗑️ Waste</button>
+            <button class="tab-btn" onclick="switchCalcTab('scope3',this)">🔗 Scope 3</button>
+          </div>
+
+          <!-- ENERGY TAB -->
+          <div class="tab-panel active" id="calc-energy">
+            <div class="card mb-16">
+              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;color:var(--txt);">⚡ Grid Electricity</div>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label class="form-label">Units Consumed (kWh)</label>
+                  <input class="form-input mono-input" type="number" placeholder="10000" id="inp-kwh" oninput="recalculate()" value="10000">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">State / Grid Zone</label>
+                  <select class="form-select" id="inp-state" onchange="recalculate()">
+                    <option value="0.716" selected>Maharashtra (0.716)</option>
+                    <option value="0.821">Rajasthan (0.821)</option>
+                    <option value="0.720">Delhi (0.720)</option>
+                    <option value="0.580">Karnataka (0.580)</option>
+                    <option value="0.655">Tamil Nadu (0.655)</option>
+                    <option value="0.798">Gujarat (0.798)</option>
+                    <option value="0.944">Uttar Pradesh (0.944)</option>
+                    <option value="0.716">National Average (0.716)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Renewable Energy %</label>
+                <input type="range" min="0" max="100" value="0" id="inp-renewable" oninput="document.getElementById('renew-val').textContent=this.value+'%';recalculate()">
+                <div style="font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--acc);margin-top:6px;" id="renew-val">0%</div>
+              </div>
+              <div style="background:var(--glass);border:1px solid var(--border2);border-radius:6px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--txt3);">
+                Formula: CO₂e = kWh × (1 − renewable%) × <span style="color:var(--acc);" id="formula-factor">0.716</span> kg/kWh
+              </div>
+            </div>
+          </div>
+
+          <!-- TRANSPORT TAB -->
+          <div class="tab-panel" id="calc-transport">
+            <div class="card mb-16">
+              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;">🚗 Company Vehicles</div>
+              <div class="grid-3">
+                <div class="form-group">
+                  <label class="form-label">Vehicle Count</label>
+                  <input class="form-input" type="number" placeholder="3" id="inp-veh-count" oninput="recalculate()" value="3">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Distance/Month (km)</label>
+                  <input class="form-input" type="number" placeholder="2000" id="inp-veh-km" oninput="recalculate()" value="2000">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Fuel Type</label>
+                  <select class="form-select" id="inp-veh-type" onchange="recalculate()">
+                    <option value="0.171">Diesel (0.171)</option>
+                    <option value="0.142">Petrol (0.142)</option>
+                    <option value="0.053">EV (0.053)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="card mb-16">
+              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;">🚌 Employee Commute</div>
+              <div class="grid-3">
+                <div class="form-group">
+                  <label class="form-label">Employees</label>
+                  <input class="form-input" type="number" placeholder="500" id="inp-emp" oninput="recalculate()" value="500">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Avg Distance (km/day)</label>
+                  <input class="form-input" type="number" placeholder="25" id="inp-emp-km" oninput="recalculate()" value="25">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Primary Mode</label>
+                  <select class="form-select" id="inp-commute-mode" onchange="recalculate()">
+                    <option value="0.089">Bus (0.089)</option>
+                    <option value="0.142" selected>Car-Petrol (0.142)</option>
+                    <option value="0.031">Metro (0.031)</option>
+                    <option value="0.063">Auto-CNG (0.063)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FUEL TAB -->
+          <div class="tab-panel" id="calc-fuel">
+            <div class="card mb-16">
+              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;">🔥 Fuel Combustion (Scope 1)</div>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label class="form-label">Diesel (litres)</label>
+                  <input class="form-input" type="number" placeholder="500" id="inp-diesel" oninput="recalculate()" value="500">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">LPG (kg)</label>
+                  <input class="form-input" type="number" placeholder="100" id="inp-lpg" oninput="recalculate()" value="100">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Natural Gas (m³)</label>
+                  <input class="form-input" type="number" placeholder="200" id="inp-gas" oninput="recalculate()" value="0">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Coal (tonnes)</label>
+                  <input class="form-input" type="number" placeholder="0" id="inp-coal" oninput="recalculate()" value="0">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WASTE TAB -->
+          <div class="tab-panel" id="calc-waste">
+            <div class="card mb-16">
+              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;">🗑️ Waste & Water</div>
+              <div class="grid-2">
+                <div class="form-group">
+                  <label class="form-label">Solid Waste (kg/month)</label>
+                  <input class="form-input" type="number" placeholder="800" id="inp-waste" oninput="recalculate()" value="800">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Landfill %</label>
+                  <input class="form-input" type="number" placeholder="70" id="inp-landfill" oninput="recalculate()" value="70">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Water Consumed (kL)</label>
+                  <input class="form-input" type="number" placeholder="400" id="inp-water" oninput="recalculate()" value="400">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Wastewater (kL)</label>
+                  <input class="form-input" type="number" placeholder="200" id="inp-wastewater" oninput="recalculate()" value="200">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SCOPE 3 TAB -->
+          <div class="tab-panel" id="calc-scope3">
+            <div class="card mb-16">
+              <div style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:16px;">✈️ Air Travel</div>
+              <div class="grid-3">
+                <div class="form-group">
+                  <label class="form-label">Domestic Flights</label>
+                  <input class="form-input" type="number" placeholder="10" id="inp-dom-flights" oninput="recalculate()" value="10">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Avg Distance (km)</label>
+                  <input class="form-input" type="number" placeholder="800" id="inp-flight-km" oninput="recalculate()" value="800">
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Passengers</label>
+                  <input class="form-input" type="number" placeholder="5" id="inp-flight-pax" oninput="recalculate()" value="5">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: LIVE RESULTS -->
+        <div class="calc-live-result">
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--txt4);text-transform:uppercase;">Total CO₂e This Month</div>
+            <div class="calc-total" id="calc-grand-total">0</div>
+            <div style="font-size:12px;color:var(--txt3);font-family:'JetBrains Mono',monospace;margin-top:-8px;">kg CO₂e</div>
+          </div>
+
+          <hr class="divider">
+
+          <div class="calc-scope-row">
+            <div><span style="font-size:12px;color:var(--txt3);">Scope 1</span><div style="font-size:9px;color:var(--txt4);font-family:'JetBrains Mono',monospace;">DIRECT</div></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--red);" id="calc-scope1">0 kg</div>
+          </div>
+          <div class="calc-scope-row">
+            <div><span style="font-size:12px;color:var(--txt3);">Scope 2</span><div style="font-size:9px;color:var(--txt4);font-family:'JetBrains Mono',monospace;">ELECTRICITY</div></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--amber);" id="calc-scope2">0 kg</div>
+          </div>
+          <div class="calc-scope-row">
+            <div><span style="font-size:12px;color:var(--txt3);">Scope 3</span><div style="font-size:9px;color:var(--txt4);font-family:'JetBrains Mono',monospace;">VALUE CHAIN</div></div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--txt2);" id="calc-scope3-val">0 kg</div>
+          </div>
+
+          <hr class="divider">
+
+          <div style="font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--txt4);font-weight:700;letter-spacing:1px;margin-bottom:10px;">EQUIVALENTS</div>
+          <div class="equiv-item"><span class="equiv-icon">🌳</span><span class="equiv-text">Trees/year needed</span><span class="equiv-val" id="eq-trees">0</span></div>
+          <div class="equiv-item"><span class="equiv-icon">✈️</span><span class="equiv-text">BOM-DEL flights</span><span class="equiv-val" id="eq-flights">0</span></div>
+          <div class="equiv-item"><span class="equiv-icon">🚗</span><span class="equiv-text">Car kilometers</span><span class="equiv-val" id="eq-cars">0</span></div>
+          <div class="equiv-item"><span class="equiv-icon">📱</span><span class="equiv-text">Phone charges</span><span class="equiv-val" id="eq-phones">0</span></div>
+
+          <hr class="divider">
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <button class="btn btn-primary w-full" style="justify-content:center;" onclick="saveCalculation()">💾 Save to Dashboard</button>
+            <button class="btn btn-outline w-full" style="justify-content:center;" onclick="showPage('reports')">📄 Generate Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ PAGE: AI INSIGHTS ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-ai" class="page" style="padding-top:64px;">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">// Navigation</div>
+        <div class="sidebar-item" onclick="showPage('dashboard');initDashboard()"><span class="icon">📊</span> Dashboard</div>
+        <div class="sidebar-item" onclick="showPage('calculator')"><span class="icon">🧮</span> Calculator</div>
+        <div class="sidebar-item active"><span class="icon">🤖</span> AI Insights</div>
+        <div class="sidebar-item" onclick="showPage('reports')"><span class="icon">📋</span> Reports</div>
+        <div class="sidebar-item" onclick="showPage('credits')"><span class="icon">🌱</span> Carbon Credits</div>
+      </div>
+    </aside>
+    <div class="main-content">
+      <div class="section-header">
+        <div><div class="section-title">AI Forecasting Center</div><div class="section-subtitle">// Prophet ML · 94.2% accuracy · Last trained 6 hours ago</div></div>
+        <div style="display:flex;gap:10px;">
+          <select class="form-select" style="width:auto;font-size:13px;padding:8px 12px;" id="forecastHorizon" onchange="updateForecast()">
+            <option value="3">3 Month Forecast</option>
+            <option value="6">6 Month Forecast</option>
+            <option value="12" selected>12 Month Forecast</option>
+            <option value="24">24 Month Forecast</option>
+          </select>
+          <div class="live-badge"><div class="ai-pulse"></div> AI ACTIVE</div>
+        </div>
+      </div>
+
+      <!-- Forecast Chart -->
+      <div class="forecast-section">
+        <div class="chart-title">Emission Forecast</div>
+        <div class="chart-subtitle">// Solid = historical · Dashed = AI prediction with confidence band</div>
+        <canvas id="forecastChart" height="200"></canvas>
+        <div style="display:flex;gap:24px;margin-top:14px;flex-wrap:wrap;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--txt3);font-family:'JetBrains Mono',monospace;"><div style="width:24px;height:3px;background:var(--acc);border-radius:2px;"></div> Actual</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--txt3);font-family:'JetBrains Mono',monospace;"><div style="width:24px;height:3px;background:var(--acc);border-radius:2px;border-top:2px dashed var(--acc);"></div> Predicted</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--txt3);font-family:'JetBrains Mono',monospace;"><div style="width:24px;height:10px;background:rgba(0,230,118,0.1);border-radius:2px;border:1px solid rgba(0,230,118,0.3);"></div> 90% Confidence</div>
+        </div>
+      </div>
+
+      <!-- Forecast KPIs -->
+      <div class="kpi-grid mb-24">
+        <div class="kpi-card"><div class="kpi-label">12-Month Projection</div><div class="kpi-value" style="color:var(--amber);">7.84M</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">kg CO₂e (current path)</div></div>
+        <div class="kpi-card"><div class="kpi-label">Trend Direction</div><div class="kpi-value" style="font-size:20px;color:var(--red);">↑ Rising</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">+8.4% YoY if unchanged</div></div>
+        <div class="kpi-card"><div class="kpi-label">Model Accuracy</div><div class="kpi-value" style="color:var(--acc);">94.2%</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">Based on 24-mo training data</div></div>
+        <div class="kpi-card"><div class="kpi-label">Target Gap (2030)</div><div class="kpi-value" style="color:var(--red);">2.1M</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">kg CO₂e above target</div></div>
+      </div>
+
+      <!-- Scenario Modeling -->
+      <div class="chart-card mb-24">
+        <div class="chart-title" style="margin-bottom:4px;">Scenario Modeling</div>
+        <div class="chart-subtitle" style="margin-bottom:20px;">// Adjust sliders to see emission impact in real-time</div>
+        <div class="grid-2">
+          <div>
+            <div class="form-group">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="form-label" style="margin:0;">☀️ Solar Adoption (%)</label>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--acc);" id="solar-val">30%</span>
+              </div>
+              <input type="range" min="0" max="100" value="30" oninput="document.getElementById('solar-val').textContent=this.value+'%';updateScenario()">
+            </div>
+            <div class="form-group">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="form-label" style="margin:0;">🚗 Fleet EV Conversion (%)</label>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--acc);" id="ev-val">20%</span>
+              </div>
+              <input type="range" min="0" max="100" value="20" oninput="document.getElementById('ev-val').textContent=this.value+'%';updateScenario()">
+            </div>
+            <div class="form-group">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="form-label" style="margin:0;">♻️ Waste Diversion (%)</label>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--acc);" id="waste-val">60%</span>
+              </div>
+              <input type="range" min="0" max="100" value="60" oninput="document.getElementById('waste-val').textContent=this.value+'%';updateScenario()">
+            </div>
+          </div>
+          <div style="background:var(--glass);border:1px solid var(--border);border-radius:8px;padding:20px;">
+            <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--txt4);font-weight:700;letter-spacing:1px;margin-bottom:12px;">SCENARIO RESULT</div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:36px;font-weight:600;color:var(--acc);" id="scenario-saving">38%</div>
+            <div style="font-size:12px;color:var(--txt3);margin-bottom:16px;">reduction in annual emissions</div>
+            <div style="font-size:13px;color:var(--txt2);">Saves <strong style="color:var(--acc);" id="scenario-kg">2.98M kg</strong> CO₂e</div>
+            <div style="font-size:13px;color:var(--txt2);">Worth ~<strong style="color:var(--acc);" id="scenario-credits">2,980</strong> carbon credits</div>
+            <div style="font-size:13px;color:var(--txt2);margin-top:4px;">Estimated cost: <strong style="color:var(--acc);">₹1.2–1.8 Cr</strong></div>
+            <div style="font-size:13px;color:var(--txt2);">ROI period: <strong style="color:var(--acc);">3.8 years</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommendations Grid -->
+      <div style="margin-bottom:20px;">
+        <div class="chart-title" style="margin-bottom:4px;">AI Recommendations</div>
+        <div class="chart-subtitle" style="margin-bottom:20px;">// Ranked by CO₂e impact · Personalized for TechCorp India</div>
+        <div id="recommendationsGrid"></div>
+      </div>
+
+      <!-- Industry Benchmark -->
+      <div class="chart-card">
+        <div class="chart-title">Industry Benchmarking</div>
+        <div class="chart-subtitle">// Your emissions vs IT/Software sector average (India)</div>
+        <canvas id="benchmarkChart" height="160"></canvas>
+        <div style="margin-top:16px;background:rgba(0,230,118,0.05);border:1px solid rgba(0,230,118,0.15);border-radius:8px;padding:14px;">
+          <div style="font-size:13px;color:var(--txt2);">You emit <strong style="color:var(--acc);">34% less</strong> than the average Indian IT company per employee. However, your <strong style="color:var(--amber);">Scope 3 is 2.4× the industry median</strong> — primarily due to air travel. Consider a remote-first travel policy.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ PAGE: REPORTS ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-reports" class="page" style="padding-top:64px;">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">// Navigation</div>
+        <div class="sidebar-item" onclick="showPage('dashboard');initDashboard()"><span class="icon">📊</span> Dashboard</div>
+        <div class="sidebar-item" onclick="showPage('calculator')"><span class="icon">🧮</span> Calculator</div>
+        <div class="sidebar-item" onclick="showPage('ai')"><span class="icon">🤖</span> AI Insights</div>
+        <div class="sidebar-item active"><span class="icon">📋</span> Reports</div>
+        <div class="sidebar-item" onclick="showPage('credits')"><span class="icon">🌱</span> Carbon Credits</div>
+      </div>
+    </aside>
+    <div class="main-content">
+      <div class="section-header">
+        <div><div class="section-title">ESG Reporting Center</div><div class="section-subtitle">// GHG Protocol · BRSR · GRI · CDP · TCFD</div></div>
+        <button class="btn btn-primary btn-sm" onclick="generateReport()">⚡ Generate Report</button>
+      </div>
+
+      <div class="grid-2">
+        <!-- LEFT: Report Builder -->
+        <div>
+          <div class="chart-card mb-20">
+            <div class="chart-title mb-16">Report Builder</div>
+            <div class="form-group">
+              <label class="form-label">Report Framework</label>
+              <select class="form-select" id="reportType">
+                <option>GHG Protocol (Recommended)</option>
+                <option>BRSR (SEBI India)</option>
+                <option>GRI Standards</option>
+                <option>CDP Disclosure</option>
+                <option>TCFD Framework</option>
+              </select>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label class="form-label">Period Start</label>
+                <input class="form-input" type="date" value="2024-04-01">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Period End</label>
+                <input class="form-input" type="date" value="2025-03-31">
+              </div>
+            </div>
+            <div class="form-label mb-8">Include Sections</div>
+            <label class="report-section-check checked" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--txt);">Executive Summary</div><div style="font-size:11px;color:var(--txt3);">Auto-generated overview paragraph</div></div>
+            </label>
+            <label class="report-section-check checked" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--txt);">Scope 1 Data Tables</div><div style="font-size:11px;color:var(--txt3);">Direct emissions by source</div></div>
+            </label>
+            <label class="report-section-check checked" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--txt);">Scope 2 Data Tables</div><div style="font-size:11px;color:var(--txt3);">Grid electricity consumption</div></div>
+            </label>
+            <label class="report-section-check" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--txt);">Scope 3 Data Tables</div><div style="font-size:11px;color:var(--txt3);">Value chain emissions</div></div>
+            </label>
+            <label class="report-section-check checked" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--txt);">Year-on-Year Comparison</div><div style="font-size:11px;color:var(--txt3);">Trend analysis vs base year</div></div>
+            </label>
+            <label class="report-section-check" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--txt);">Reduction Targets</div><div style="font-size:11px;color:var(--txt3);">SBTi target progress</div></div>
+            </label>
+            <label class="report-section-check checked" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--txt);">Carbon Credits Summary</div><div style="font-size:11px;color:var(--txt3);">Purchased and retired credits</div></div>
+            </label>
+            <label class="report-section-check" onclick="toggleCheck(this)">
+              <div class="check-box"></div>
+              <div><div style="font-size:13px;font-weight:600;color:var(--txt);">Methodology Notes</div><div style="font-size:11px;color:var(--txt3);">Emission factor sources cited</div></div>
+            </label>
+            <button class="btn btn-primary w-full mt-16" style="justify-content:center;" onclick="generateReport()">⚡ Generate PDF Report</button>
+          </div>
+        </div>
+
+        <!-- RIGHT: Compliance Tracker + Library -->
+        <div>
+          <div class="chart-card mb-16">
+            <div class="chart-title mb-16">Compliance Calendar</div>
+            <div id="complianceList"></div>
+          </div>
+          <div class="chart-card">
+            <div style="display:flex;justify-content:space-between;margin-bottom:16px;align-items:center;">
+              <div class="chart-title">Report Library</div>
+              <span style="font-size:12px;color:var(--txt3);font-family:'JetBrains Mono',monospace;">4 reports</span>
+            </div>
+            <table class="data-table">
+              <thead><tr><th>Report</th><th>Type</th><th>Period</th><th>Status</th><th></th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>Annual ESG FY24</td>
+                  <td><span class="badge badge-blue">BRSR</span></td>
+                  <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt3);">Apr–Mar 24</td>
+                  <td><span class="badge badge-green">Final</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('Downloading report...', 'info')">↓</button></td>
+                </tr>
+                <tr>
+                  <td>Q3 Emissions Report</td>
+                  <td><span class="badge badge-blue">GHG</span></td>
+                  <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt3);">Oct–Dec 24</td>
+                  <td><span class="badge badge-green">Final</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('Downloading report...', 'info')">↓</button></td>
+                </tr>
+                <tr>
+                  <td>CDP Climate Disclosure</td>
+                  <td><span class="badge badge-blue">CDP</span></td>
+                  <td style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--txt3);">FY 2023</td>
+                  <td><span class="badge badge-amber">Draft</span></td>
+                  <td><button class="btn btn-ghost btn-sm" onclick="showToast('Downloading report...', 'info')">↓</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ═══ PAGE: CARBON CREDITS ═══ -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="page-credits" class="page" style="padding-top:64px;">
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-label">// Navigation</div>
+        <div class="sidebar-item" onclick="showPage('dashboard');initDashboard()"><span class="icon">📊</span> Dashboard</div>
+        <div class="sidebar-item" onclick="showPage('calculator')"><span class="icon">🧮</span> Calculator</div>
+        <div class="sidebar-item" onclick="showPage('ai')"><span class="icon">🤖</span> AI Insights</div>
+        <div class="sidebar-item" onclick="showPage('reports')"><span class="icon">📋</span> Reports</div>
+        <div class="sidebar-item active"><span class="icon">🌱</span> Carbon Credits</div>
+      </div>
+      <div style="margin-top:20px;padding:14px;background:var(--glass);border:1px solid var(--border);border-radius:8px;">
+        <div style="font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--txt4);font-weight:700;letter-spacing:1px;margin-bottom:6px;">PORTFOLIO</div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:600;color:var(--acc);">124.5 <span style="font-size:12px;color:var(--txt3)">tCO₂e</span></div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:4px;">Available to retire</div>
+        <hr class="divider">
+        <div style="font-size:12px;color:var(--txt2);">Retired: <span style="color:var(--acc);font-family:'JetBrains Mono',monospace;">340.0 tCO₂e</span></div>
+        <div style="font-size:12px;color:var(--txt2);margin-top:4px;">Total invested: <span style="color:var(--acc);font-family:'JetBrains Mono',monospace;">₹23.4L</span></div>
+      </div>
+    </aside>
+    <div class="main-content">
+      <div class="section-header">
+        <div><div class="section-title">Carbon Credit Marketplace</div><div class="section-subtitle">// Verra · Gold Standard · ACR verified projects</div></div>
+        <div style="display:flex;gap:10px;">
+          <select class="form-select" style="width:auto;font-size:13px;padding:8px 12px;" onchange="filterCredits(this.value)">
+            <option value="all">All Types</option>
+            <option value="renewable">Renewable Energy</option>
+            <option value="reforestation">Reforestation</option>
+            <option value="methane">Methane Capture</option>
+            <option value="efficiency">Energy Efficiency</option>
+          </select>
+          <select class="form-select" style="width:auto;font-size:13px;padding:8px 12px;">
+            <option>All Registries</option>
+            <option>Verra (VCS)</option>
+            <option>Gold Standard</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Portfolio KPIs -->
+      <div class="kpi-grid mb-24">
+        <div class="kpi-card"><div class="kpi-label">Credits Owned</div><div class="kpi-value" style="color:var(--acc);">124.5</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">tCO₂e available</div></div>
+        <div class="kpi-card"><div class="kpi-label">Credits Retired YTD</div><div class="kpi-value">340.0</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">tCO₂e offset</div></div>
+        <div class="kpi-card"><div class="kpi-label">Portfolio Value</div><div class="kpi-value" style="font-size:20px;">₹6.23L</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">at current prices</div></div>
+        <div class="kpi-card"><div class="kpi-label">Avg Price Paid</div><div class="kpi-value" style="color:var(--acc);">₹5,012</div><div class="kpi-sub" style="font-size:11px;color:var(--txt4);">per tonne CO₂e</div></div>
+      </div>
+
+      <!-- Marketplace Grid -->
+      <div class="credit-grid" id="creditGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
